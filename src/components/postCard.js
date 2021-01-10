@@ -1,45 +1,47 @@
-import useSWR from "swr";
 import Link from "next/link";
 import { formatDistanceToNowStrict, fromUnixTime } from "date-fns";
 
-const fetcher = (endpoint) =>
-  fetch(
-    `https://hacker-news.firebaseio.com/v0/${endpoint}.json?print=pretty`
-  ).then((res) => res.json());
-
 export default function PostCard({ data }) {
-
   if (!data) return <></>;
 
   return (
-    <div>
-      <a href={data.url} target="_blank" rel="noopener noreferrer">
+    <div className="mb-6">
+      <a
+        href={data.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-lg font-semibold leading-3 hover:text-yellow-500 focus:text-yellow-500"
+      >
         {data ? data.title : id}
       </a>
-      <div>
+      <div className="text-sm font-normal text-gray-400">
+        <span>{data.points} points</span>
+        <span className="text-gray-700"> • </span>
+        <span>
+          <Link href={`/${data.id}`}>
+            <a className="border-b border-dashed border-gray-400 hover:text-white focus:text-white">
+              {data.comments_count} comment{data.comments_count != 1 && "s"}
+            </a>
+          </Link>
+        </span>
+        <span className="text-gray-700"> • </span>
+        {/* <span>by {data.user}</span> */}
         <span>
           {formatDistanceToNowStrict(fromUnixTime(data.time), {
             addSuffix: true,
           })}
         </span>
-        <span> / </span>
-        <span>by {data.user}</span>
-        <span> / </span>
-        <span>
-          <Link href={`/${data.id}`}>
-            <a>{data.comments_count} comments</a>
-          </Link>
-        </span>
-        <span> / </span>
         {data.url && (
-          (
-          <span>
+          <>
+            <span className="text-gray-700"> • </span>
+            <span>
               {data.url.match(
-                /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[^www][a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/
+                /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}(?!w{1,}\.)[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/
               )}
             </span>
-        )
+          </>
         )}
+
       </div>
     </div>
   );
