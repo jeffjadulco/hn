@@ -1,6 +1,13 @@
+import { useRouter } from 'next/router'
 import { getPostIds, getPostDataWithComments } from "../src/services/items";
 
 export default function Item({ data }) {
+  const { isFallback } = useRouter();
+
+  if (isFallback) {
+    return <></>
+  }
+
   return (
     <div>
       <h2>{data.title}</h2>
@@ -17,7 +24,7 @@ export async function getStaticPaths() {
     params: { id: id.toString() }, // Id should be a string
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 export async function getStaticProps({ params }) {
