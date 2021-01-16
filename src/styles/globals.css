@@ -7,3 +7,23 @@
 body {
   @apply bg-black text-white;
 }
+
+.comment-indent-0 {
+  @apply border-yellow-500
+}
+
+.comment-indent-1 {
+  @apply border-pink-500
+}
+
+.comment-indent-2 {
+  @apply border-red-500
+}
+
+.comment-indent-3 {
+  @apply border-blue-500
+}
+
+.comment-indent-4 {
+  @apply border-green-500
+}

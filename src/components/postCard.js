@@ -12,7 +12,7 @@ export default function PostCard({ data }) {
         rel="noopener noreferrer"
         className="text-lg font-semibold leading-3 hover:text-yellow-500 focus:text-yellow-500"
       >
-        {data ? data.title : id}
+        {data.title}
       </a>
       <div className="text-sm font-normal text-gray-400">
         <span>{data.points} points</span>
@@ -41,7 +41,6 @@ export default function PostCard({ data }) {
             </span>
           </>
         )}
-
       </div>
     </div>
   );
