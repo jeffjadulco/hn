@@ -6,8 +6,7 @@ import Comment from '../src/components/comment'
 
 export default function Item({ data }) {
   const { isFallback } = useRouter();
-  const content = { __html: data.content };
-  const comment = { __html: data.comments[1].content }
+  const content = { __html: data ? data.content : "" };
 
   if (isFallback) {
     return <></>
@@ -37,7 +36,6 @@ export default function Item({ data }) {
             </Link>
           </span>
           <span className="text-gray-700"> • </span>
-          {/* <span>by {data.user}</span> */}
           <span>
             {formatDistanceToNowStrict(fromUnixTime(data.time), {
               addSuffix: true,
