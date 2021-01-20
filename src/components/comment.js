@@ -6,8 +6,9 @@ const borderColors = [""]
 export default function Comment({ data }) {
   const content = { __html: data.content }
   const indentStyle = `comment-indent-${data.level}`
+  const shouldCollapseInitially = (data && data.level > 3) && (data.comments && data.comments.length > 0)
 
-  const [isCollapsed, setCollapsed] = useState(false);
+  const [isCollapsed, setCollapsed] = useState(shouldCollapseInitially);
 
   const onToggleCollasped = e => {
     e.preventDefault()
