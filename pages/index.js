@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { getPosts } from "../src/services/items";
 import Posts from "../src/components/posts";
+import { Footer } from "../src/components/footer";
 
 export default function Home({ data }) {
   return (
@@ -17,27 +18,7 @@ export default function Home({ data }) {
       </header>
       <Posts data={data} />
 
-      <footer className="h-32 mx-auto max-w-3xl px-4 md:px-0 text-lg font-semibold text-gray-400 flex flex-col-reverse sm:flex-row items-center justify-center sm:justify-between">
-        <span className="">
-          Code and Design by{" "}
-          <a
-            href="https://jeffjadulco.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-yellow-500 border-b border-dashed border-gray-400"
-          >
-            Jeff Jadulco
-          </a>
-        </span>
-        <a
-          href="https://github.com/jeffjadulco/hn"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-yellow-500 border-b border-dashed border-gray-400"
-        >
-          Source
-        </a>
-      </footer>
+      <Footer />
     </div>
   );
 }

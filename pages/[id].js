@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { formatDistanceToNowStrict, fromUnixTime } from "date-fns";
 import { getPostIds, getPostDataWithComments } from "../src/services/items";
 import Comment from '../src/components/comment'
+import { Footer } from "../src/components/footer";
 
 export default function Item({ data }) {
   const { isFallback } = useRouter();
@@ -60,27 +61,8 @@ export default function Item({ data }) {
         {/* Comments */}
         {data.comments.map(comment => <Comment key={comment.id} data={comment} />)}
       </main>
-      <footer className="h-32 mx-auto max-w-3xl px-4 md:px-0 text-lg font-semibold text-gray-400 flex flex-col-reverse sm:flex-row items-center justify-center sm:justify-between">
-        <span className="">
-          Code and Design by{" "}
-          <a
-            href="https://jeffjadulco.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-yellow-500 border-b border-dashed border-gray-400"
-          >
-            Jeff Jadulco
-          </a>
-        </span>
-        <a
-          href="https://github.com/jeffjadulco/hn"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-yellow-500 border-b border-dashed border-gray-400"
-        >
-          Source
-        </a>
-      </footer>
+
+      <Footer />
     </div>
   );
 }
