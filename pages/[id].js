@@ -26,7 +26,7 @@ export default function Item({ data }) {
           </a>
         </h1>
         {data.content && <div className="prose mb-6" dangerouslySetInnerHTML={content} />}
-        <div className="text-sm font-normal text-gray-400">
+        <div className="text-center sm:text-left text-sm font-normal text-gray-400">
           <span>{data.points} points</span>
           <span className="text-gray-700"> • </span>
           <span>
