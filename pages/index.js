@@ -24,7 +24,8 @@ export default function Home({ data }) {
 }
 
 export async function getStaticProps(context) {
-  const data = await getPosts();
+  const posts = await getPosts();
+  const data = posts.filter(Boolean)
 
   // This is a cool addition to Next.js. They call it Incremental Static Regeneration
   // See: https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration

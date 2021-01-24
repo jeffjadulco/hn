@@ -23,8 +23,13 @@ function limitComments(comment) {
 
 export async function getPostData(id) {
   const data = await fetch(`${ITEM_URL}/${id}.json`).then((res) => res.json());
-  data.comments = [];
-  return data;
+
+  if (data.type != "job") {
+    data.comments = [];
+    return data;
+  }
+
+  return null;
 }
 
 export async function getPostDataWithComments(id) {
