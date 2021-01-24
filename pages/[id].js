@@ -16,7 +16,13 @@ export default function Item({ data }) {
   return (
     <div className="mx-auto max-w-3xl px-4 md:px-0">
       <header className="pt-40 sm:pt-20">
-        <h1 className="pb-4 text-2xl sm:text-4xl font-black text-center sm:text-left text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-pink-500 to-red-500">
+        <Link href="/">
+          <a className="inline-flex items-center hover:bg-gray-800 rounded-sm py-1 pr-2 text-xs sm:text-sm">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
+            Back
+          </a>
+        </Link>
+        <h1 className="mt-4 pb-4 text-2xl sm:text-4xl font-black text-center sm:text-left text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-pink-500 to-red-500">
           <a
             href={data.url}
             target="_blank"
