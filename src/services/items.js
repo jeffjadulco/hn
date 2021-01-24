@@ -33,7 +33,13 @@ export async function getPostData(id) {
 }
 
 export async function getPostDataWithComments(id) {
-  const data = await fetch(`${ITEM_URL}/${id}.json`).then((res) => res.json());
+  const data = await fetch(`${ITEM_URL}/${id}.json`)
+    .then((res) => res.json())
+    .catch(e => {
+      console.error(e);
+    });
+
+  if (!data) return null;
 
   var comments = [];
   if (data.comments) {

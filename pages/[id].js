@@ -13,13 +13,19 @@ export default function Item({ data }) {
   if (isFallback) {
     return <>
       <SEO title={"Hacker News"} description="My personal Hacker News reader" />
+      <div className="min-h-screen flex items-center">
+        <svg className="w-6 h-6 m-auto animate-spin" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
+        </svg>
+      </div>
     </>
   }
 
   return (
     <>
       <SEO title={data.title} description={data.content ? data.content : data.title} />
-      <div className="mx-auto max-w-3xl px-4 md:px-0">
+      <div className="min-h-screen flex flex-col mx-auto max-w-3xl px-4 md:px-0">
         <header className="pt-40 sm:pt-20">
           <Link href="/">
             <a className="inline-flex items-center hover:bg-gray-800 rounded-sm py-1 pr-2 text-xs sm:text-sm">
@@ -68,11 +74,10 @@ export default function Item({ data }) {
         <div className="mt-6 mb-6">
           <div className="border-t border-dashed border-gray-400" />
         </div>
-        <main className="space-y-6">
+        <main className="flex-1 space-y-6">
           {/* Comments */}
           {data.comments.map(comment => <Comment key={comment.id} data={comment} />)}
         </main>
-
         <Footer />
       </div>
     </>
@@ -93,6 +98,13 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const data = await getPostDataWithComments(params.id);
+
+  if (!data) {
+    console.warn(`Can't find post data with id=${params.id}`)
+    return {
+      notFound: true
+    }
+  }
 
   return {
     props: {
