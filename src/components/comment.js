@@ -23,10 +23,10 @@ export default function Comment({ data }) {
   return (
     <div className="group">
       <div
-        className="relative hover:bg-gray-900 hover:bg-opacity-80 pl-3 -ml-3 py-2 -my-2"
+        className="relative hover:bg-gray-900 hover:bg-opacity-80 pl-3 -ml-3 -mr-3 py-2 -my-2"
         onClick={onToggleCollasped}>
         {isCollapsed &&
-          <div className="absolute right-0 mr-0 sm:mr-3 sm:mt-1 px-1 text-xs font-me text-black bg-yellow-500 rounded-sm cursor-default">
+          <div className="absolute right-0 mr-3 sm:mt-1 px-1 text-xs font-me text-black bg-yellow-500 rounded-sm cursor-default">
             +{data.comments.length}
           </div>}
         <div className="text-sm font-normal text-gray-400 mb-1">
