@@ -17,6 +17,10 @@ export const SEO = ({ title, description }) => {
             }
           ]
         }}
+        twitter={{
+          handle: "@jeffjadulco",
+          cardType: "summary_large_image"
+        }}
       />
       <Head>
         <link rel="icon" href="/favicon.png" />
