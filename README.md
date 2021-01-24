@@ -1,7 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Hacker News reader using Next.js
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![Twitter Follow](https://img.shields.io/twitter/follow/jeffjadulco?style=social)
 
-## Getting Started
+<p align="center">
+<img src="https://raw.githubusercontent.com/jeffjadulco/hn/master/assets/readme-demo.gif" alt="Demo GIF" width="70%">
+</p>
 
+## Statically dynamic using ISR
+With Next.js' [Incremental Static Regeneration (ISR)](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration), dynamic content can be statically served. Existing pages can be updated once a request is made.
+
+
+## Development
 First, run the development server:
 
 ```bash
@@ -12,23 +21,28 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Configuration
+You can change the regeneration frequency by changing the `revalidate` value.
+```js
+export async function getStaticProps(context) {
+  const posts = await getPosts();
+  const data = posts.filter(Boolean)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+  return {
+    props: {
+      data,
+    },
+    revalidate: 3600,
+  };
+}
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+You can also change the number of posts displayed by passing an integer to `getPosts`.
 
-## Learn More
+## Author
 
-To learn more about Next.js, take a look at the following resources:
+- [Jeff Jadulco](https://jeffjadulco.com)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is open source and available under the [MIT License](LICENSE)
