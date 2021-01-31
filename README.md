@@ -9,6 +9,7 @@
 ## Statically dynamic using ISR
 With Next.js' [Incremental Static Regeneration (ISR)](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration), dynamic content can be statically served. Existing pages can be updated once a request is made.
 
+**Inspired by Brian Lovin's work.** Check it out [here](https://brianlovin.com/hn)!
 
 ## Development
 First, run the development server:
