@@ -14,7 +14,7 @@ export async function getPostIds(limit = 20) {
 }
 
 function limitComments(comment) {
-  if (!comment || comment.level > 5) return null;
+  if (!comment || comment.level > 5 || comment.deleted) return null;
 
   // Found this trick to filter null/undefined items: https://www.michaeluloth.com/filter-boolean
   comment.comments = comment.comments.map(limitComments).filter(Boolean);
