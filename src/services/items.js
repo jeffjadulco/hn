@@ -43,7 +43,7 @@ export async function getPostDataWithComments(id) {
 
   var comments = [];
   if (data.comments) {
-    comments = data.comments.map((comment) => limitComments(comment));
+    comments = data.comments.map((comment) => limitComments(comment)).filter(Boolean);
   }
 
   data.comments = comments;
