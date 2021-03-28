@@ -1,4 +1,4 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+const defaultTheme = require("tailwindcss/defaultTheme")
 
 module.exports = {
   purge: ["./pages/**/*.js", "./src/components/*.js"],
@@ -11,12 +11,12 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            color: theme('colors.white'),
+            color: theme("colors.white"),
             a: {
-              color: theme('colors.blue.500'),
-              textDecoration: 'none',
-              '&:hover': {
-                textDecoration: 'underline',
+              color: theme("colors.pink.500"),
+              textDecoration: "none",
+              "&:hover": {
+                textDecoration: "underline",
               },
             },
           },
@@ -26,10 +26,8 @@ module.exports = {
   },
   variants: {
     extend: {
-      borderStyle: ['hover', 'focus'],
+      borderStyle: ["hover", "focus"],
     },
   },
-  plugins: [
-    require('@tailwindcss/typography')
-  ],
-};
+  plugins: [require("@tailwindcss/typography")],
+}

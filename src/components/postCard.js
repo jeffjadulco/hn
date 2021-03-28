@@ -10,7 +10,7 @@ export default function PostCard({ data }) {
         href={data.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-lg font-semibold leading-3 hover:text-yellow-500 focus:text-yellow-500"
+        className="text-lg font-semibold leading-3 text-gray-300 hover:text-yellow-500 focus:text-yellow-500 transition-colors duration-200 ease-out"
       >
         {data.title}
       </a>
@@ -19,7 +19,7 @@ export default function PostCard({ data }) {
         <span className="text-gray-700"> • </span>
         <span>
           <Link href={`/${data.id}`}>
-            <a className="border-b border-dashed border-gray-400 hover:text-white focus:text-white">
+            <a className="border-b border-dashed border-gray-400 hover:text-white focus:text-white hover:border-solid transition-colors duration-200 ease-out">
               {data.comments_count} comment{data.comments_count != 1 && "s"}
             </a>
           </Link>

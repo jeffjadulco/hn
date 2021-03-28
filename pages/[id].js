@@ -28,12 +28,12 @@ export default function Item({ data }) {
       <div className="min-h-screen flex flex-col mx-auto max-w-3xl px-4 md:px-0">
         <header className="pt-40 sm:pt-20">
           <Link href="/">
-            <a className="inline-flex items-center hover:bg-gray-800 rounded-sm py-1 pr-2 text-xs sm:text-sm">
+            <a className="inline-flex items-center hover:bg-gray-900 hover:ring-2 hover:ring-gray-700 rounded-md py-1 pr-3 text-xs sm:text-sm text-gray-400 transition-colors duration-150 ease-out">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
               Back
             </a>
           </Link>
-          <h1 className="mt-4 pb-4 text-2xl sm:text-4xl font-black text-center sm:text-left text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-pink-500 to-red-500">
+          <h1 className="mt-4 pb-4 text-2xl sm:text-4xl font-black text-center text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-pink-500 to-red-500">
             <a
               href={data.url}
               target="_blank"
@@ -43,12 +43,12 @@ export default function Item({ data }) {
             </a>
           </h1>
           {data.content && <div className="prose mb-6" dangerouslySetInnerHTML={content} />}
-          <div className="text-center sm:text-left text-sm font-normal text-gray-400">
+          <div className="text-center text-sm font-normal text-gray-400">
             <span>{data.points} points</span>
             <span className="text-gray-700"> • </span>
             <span>
               <Link href={`/${data.id}`}>
-                <a className="border-b border-dashed border-gray-400 hover:text-white focus:text-white">
+                <a className="border-b border-dashed border-gray-400 hover:text-white focus:text-white transition-colors duration-300 ease-out">
                   {data.comments_count} comment{data.comments_count != 1 && "s"}
                 </a>
               </Link>
@@ -71,8 +71,8 @@ export default function Item({ data }) {
             )}
           </div>
         </header>
-        <div className="mt-6 mb-6">
-          <div className="border-t border-dashed border-gray-400" />
+        <div className="my-8 mx-auto w-14">
+          {/* <div className="border-t-[3px] rounded-md border-gray-700" /> */}
         </div>
         <main className="flex-1 space-y-6">
           {/* Comments */}
