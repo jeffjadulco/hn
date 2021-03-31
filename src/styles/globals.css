@@ -4,26 +4,38 @@
 @tailwind components;
 @tailwind utilities;
 
+::-moz-selection,
+::selection {
+  @apply bg-pink-400 text-black;
+}
+
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
 body {
-  @apply bg-black text-white;
+  overflow-x: hidden;
+  @apply antialiased bg-black text-white;
 }
 
 .comment-indent-0 {
-  @apply border-yellow-500
+  @apply border-yellow-500;
 }
 
 .comment-indent-1 {
-  @apply border-pink-500
+  @apply border-pink-500;
 }
 
 .comment-indent-2 {
-  @apply border-red-500
+  @apply border-red-500;
 }
 
 .comment-indent-3 {
-  @apply border-blue-500
+  @apply border-blue-500;
 }
 
 .comment-indent-4 {
-  @apply border-green-500
+  @apply border-green-500;
 }

@@ -13,11 +13,16 @@ module.exports = {
           css: {
             color: theme("colors.white"),
             a: {
-              color: theme("colors.pink.500"),
+              color: theme("colors.pink.400"),
               textDecoration: "none",
               "&:hover": {
                 textDecoration: "underline",
               },
+            },
+            p: {
+              wordBreak: "break-word",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
             },
           },
         },

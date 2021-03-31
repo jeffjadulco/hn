@@ -1,8 +1,12 @@
-import Link from "next/link";
-import { formatDistanceToNowStrict, fromUnixTime } from "date-fns";
+import Link from "next/link"
+import { formatDistanceToNowStrict, fromUnixTime } from "date-fns"
 
 export default function PostCard({ data }) {
-  if (!data) return <></>;
+  const urlRegex = new RegExp(
+    /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}(?!w{1,}\.)[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/
+  )
+
+  if (!data) return <></>
 
   return (
     <div className="mb-6">
@@ -10,7 +14,7 @@ export default function PostCard({ data }) {
         href={data.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-lg font-semibold leading-3 text-gray-300 hover:text-yellow-500 focus:text-yellow-500 transition-colors duration-200 ease-out"
+        className="text-lg font-semibold leading-3 text-gray-300 hover:text-yellow-500 focus:text-yellow-500"
       >
         {data.title}
       </a>
@@ -19,7 +23,7 @@ export default function PostCard({ data }) {
         <span className="text-gray-700"> • </span>
         <span>
           <Link href={`/${data.id}`}>
-            <a className="border-b border-dashed border-gray-400 hover:text-white focus:text-white hover:border-solid transition-colors duration-200 ease-out">
+            <a className="border-b border-dotted border-gray-400 hover:text-white focus:text-white hover:border-solid">
               {data.comments_count} comment{data.comments_count != 1 && "s"}
             </a>
           </Link>
@@ -31,17 +35,13 @@ export default function PostCard({ data }) {
             addSuffix: true,
           })}
         </span>
-        {data.url && (
+        {urlRegex.test(data.url) && (
           <>
             <span className="text-gray-700"> • </span>
-            <span>
-              {data.url.match(
-                /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}(?!w{1,}\.)[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/
-              )}
-            </span>
+            <span>{data.url.match(urlRegex)}</span>
           </>
         )}
       </div>
     </div>
-  );
+  )
 }
