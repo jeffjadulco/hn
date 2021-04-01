@@ -9,12 +9,12 @@ export default function PostCard({ data }) {
   if (!data) return <></>
 
   return (
-    <div className="mb-6">
+    <div className="group mb-6">
       <a
         href={data.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-lg font-semibold leading-3 text-gray-300 hover:text-yellow-500 focus:text-yellow-500"
+        className="text-lg font-semibold leading-3 text-gray-300 group-hover:text-yellow-500 focus:text-yellow-500"
       >
         {data.title}
       </a>

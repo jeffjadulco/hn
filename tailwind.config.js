@@ -24,6 +24,9 @@ module.exports = {
               overflow: "hidden",
               textOverflow: "ellipsis",
             },
+            "pre code": {
+              whiteSpace: "pre-line",
+            },
           },
         },
       }),

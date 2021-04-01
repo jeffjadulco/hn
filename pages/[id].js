@@ -8,20 +8,31 @@ import { Footer } from "../src/components/footer"
 import { SEO } from "../src/components/seo"
 import {
   IconBack,
-  IconBookmark,
+  IconBookmarkOutline,
+  IconBookmarkSolid,
   IconComment,
   IconHome,
   IconLink,
   IconPoints,
   IconTime,
 } from "../src/components/icons"
+import { useBookmarks } from "../src/hooks/useBookmarks"
 
 export default function Item({ data }) {
   const { isFallback } = useRouter()
+  const { bookmarks, addBookmark, removeBookmark } = useBookmarks()
   const content = { __html: data ? data.content : "" }
   const urlRegex = new RegExp(
     /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}(?!w{1,}\.)[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/
   )
+
+  const handleBookmarkClick = (_) => {
+    if (bookmarks.includes(data.id)) {
+      removeBookmark(data.id)
+    } else {
+      addBookmark(data.id)
+    }
+  }
 
   if (isFallback) {
     return (
@@ -57,14 +68,25 @@ export default function Item({ data }) {
       <div className="min-h-screen flex flex-col mx-auto max-w-3xl px-4 md:px-0">
         <header className="pt-40 sm:pt-20 mb-12">
           <Link href="/">
-            <a className="hover:text-gray-300 text-gray-400">
-              <IconHome />
+            <a className="inline-flex items-center hover:bg-gray-900 hover:ring-2 hover:ring-gray-700 rounded-md py-1 pr-3 text-xs sm:text-sm text-gray-400 transition-colors duration-150 ease-out">
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M15 19l-7-7 7-7"
+                ></path>
+              </svg>
+              Back
             </a>
           </Link>
-          <button className="hover:text-gray-300 text-gray-400" hidden>
-            <IconBookmark />
-          </button>
-          <h1 className="mt-4 pb-4 text-2xl sm:text-4xl font-black text-center text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-pink-500 to-red-500">
+          <h1 className="mt-4 pb-4 text-2xl sm:text-4xl font-black text-center text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-pink-500 to-red-500 hover:bg-gradient-to-l">
             <a href={data.url} target="_blank" rel="noopener noreferrer">
               {data.title}
             </a>
@@ -82,28 +104,52 @@ export default function Item({ data }) {
             </span>
             <span>
               <Link href={`/${data.id}`}>
-                <a className="hover:text-pink-400 focus:text-white transition-colors duration-300 ease-out">
+                <a className="group hover:text-pink-400 transition-colors duration-300 ease-out">
                   <IconComment />
-                  {data.comments_count} comment{data.comments_count != 1 && "s"}
+                  <span className="border-b border-dotted group-hover:border-transparent">
+                    {data.comments_count} comment
+                    {data.comments_count != 1 && "s"}
+                  </span>
                 </a>
               </Link>
             </span>
-
             {urlRegex.test(data.url) && (
-              <>
+              <React.Fragment>
                 <span>
                   <a
-                    className="hover:text-pink-400 focus:text-white"
+                    className="group hover:text-pink-400"
                     href={data.url}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <IconLink />
-                    {data.url.match(urlRegex)}
+                    <span className="border-b border-dotted group-hover:border-transparent">
+                      {data.url.match(urlRegex)}
+                    </span>
                   </a>
                 </span>
-              </>
+              </React.Fragment>
             )}
+            <button
+              className="group hover:text-pink-400"
+              onClick={handleBookmarkClick}
+            >
+              {bookmarks.includes(data.id) ? (
+                <React.Fragment>
+                  <IconBookmarkSolid />
+                  <span className="group-hover:border-transparent border-b border-dotted">
+                    Saved
+                  </span>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <IconBookmarkOutline />
+                  <span className="group-hover:border-transparent border-b border-dotted">
+                    Save
+                  </span>
+                </React.Fragment>
+              )}
+            </button>
           </div>
           {data.content && (
             <React.Fragment>
