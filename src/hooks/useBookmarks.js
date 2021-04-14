@@ -10,7 +10,6 @@ import { fetchBookmarks } from "../services/bookmarks"
 const BookmarksContext = createContext()
 
 function bookmarksReducer(state, action) {
-  console.log("bookmarksReducer", action)
   switch (action.type) {
     case "LOAD": {
       const stored = window.localStorage.getItem("bookmarks")
@@ -21,8 +20,7 @@ function bookmarksReducer(state, action) {
       }
     }
     case "ADD": {
-      const bms = state.bookmarks
-      bms.push(action.payload)
+      const bms = [action.payload, ...state.bookmarks]
       window.localStorage.setItem("bookmarks", JSON.stringify(bms))
       return {
         ...state,
@@ -69,7 +67,6 @@ async function fetchBookmarksData(bookmarks, dispatch) {
     const posts = await fetchBookmarks(bookmarks)
     dispatch({ type: "FETCH-COMPLETED", payload: posts })
   } catch (error) {
-    console.warn(error)
     dispatch({ type: "FETCH-FAILED" })
   }
 }
@@ -86,6 +83,10 @@ function BookmarksProvider({ children }) {
   }, [])
 
   const fetchBookmarks = useCallback(() => {
+    fetchBookmarksData(bookmarks, dispatch)
+  }, [bookmarks])
+
+  useEffect(() => {
     fetchBookmarksData(bookmarks, dispatch)
   }, [bookmarks])
 
