@@ -23,17 +23,17 @@ export default function Comment({ data }) {
   return (
     <div className="group">
       <div
-        className={`relative px-3 -ml-3 -mr-3 py-2 -my-2 border-2 border-transparent hover:border-gray-700 rounded-md hover:bg-gray-900 hover:bg-opacity-75 ${
+        className={`relative px-3 -ml-2 sm:-ml-3 -mr-3 py-2 -my-2 border-2 border-transparent sm:hover:border-gray-700 rounded-md sm:hover:bg-gray-900  hover:bg-gray-800 hover:bg-opacity-75 ${
           data.comments.length > 0 ? "cursor-pointer" : ""
         }`}
         onClick={onToggleCollasped}
       >
         {isCollapsed && (
-          <div className="absolute right-0 mr-3 sm:mt-1 px-1 text-xs font-me text-black bg-yellow-500 rounded-md cursor-default">
+          <div className="absolute right-0 mr-3 sm:mt-1 px-1 text-xs font-medium text-black bg-yellow-500 rounded-md cursor-default">
             +{data.comments.length}
           </div>
         )}
-        <div className="text-sm font-normal text-gray-500 mb-1">
+        <div className="text-sm font-normal text-gray-400 mb-1">
           <span>
             <IconUser />
             {data.user}
@@ -50,10 +50,7 @@ export default function Comment({ data }) {
           dangerouslySetInnerHTML={content}
         />
       </div>
-      <div
-        className={`my-4 border-l-2 rounded-sm ${indentStyle}`}
-        hidden={isCollapsed}
-      >
+      <div className={`my-4 border-l-2 ${indentStyle}`} hidden={isCollapsed}>
         <div className="ml-3 sm:ml-5">
           {data.comments.map((comment) => (
             <Comment key={comment.id} data={comment} />

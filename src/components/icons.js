@@ -1,6 +1,7 @@
 export const IconComment = (_) => {
   return (
     <svg
+      aria-hidden={true}
       className="inline-flex w-4 h-4 align-text-bottom mx-1"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -20,6 +21,7 @@ export const IconComment = (_) => {
 export const IconTime = (_) => {
   return (
     <svg
+      aria-hidden={true}
       className="inline-flex w-4 h-4 align-text-bottom mx-1"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -39,6 +41,7 @@ export const IconTime = (_) => {
 export const IconLink = (_) => {
   return (
     <svg
+      aria-hidden={true}
       className="inline-flex w-4 h-4 align-text-bottom mx-1"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -58,6 +61,7 @@ export const IconLink = (_) => {
 export const IconPoints = (_) => {
   return (
     <svg
+      aria-hidden={true}
       className="inline-flex w-4 h-4 align-text-bottom mx-1"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -77,6 +81,7 @@ export const IconPoints = (_) => {
 export const IconUser = (_) => {
   return (
     <svg
+      aria-hidden={true}
       className="inline-flex w-4 h-4 align-text-bottom -ml-1 mr-1"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -96,6 +101,7 @@ export const IconUser = (_) => {
 export const IconBack = (_) => {
   return (
     <svg
+      aria-hidden={true}
       className="inline-flex w-5 h-5 align-text-bottom mx-1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
@@ -113,6 +119,7 @@ export const IconBack = (_) => {
 export const IconHome = (_) => {
   return (
     <svg
+      aria-hidden={true}
       className="inline-flex w-6 h-6 align-middle mx-1"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -132,6 +139,7 @@ export const IconHome = (_) => {
 export const IconBookmarkOutline = (_) => {
   return (
     <svg
+      aria-hidden={true}
       className="inline-flex w-4 h-4 align-text-bottom mx-1"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -151,6 +159,7 @@ export const IconBookmarkOutline = (_) => {
 export const IconBookmarkSolid = (_) => {
   return (
     <svg
+      aria-hidden={true}
       className="inline-flex w-4 h-4 align-text-bottom mx-1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 18 18"
@@ -164,6 +173,7 @@ export const IconBookmarkSolid = (_) => {
 export const IconPosts = (_) => {
   return (
     <svg
+      aria-hidden={true}
       className="inline-flex w-4 h-4 align-text-bottom mx-1"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -183,6 +193,7 @@ export const IconPosts = (_) => {
 export const IconSettings = () => {
   return (
     <svg
+      aria-hidden={true}
       className="inline-flex w-4 h-4 align-text-bottom mx-1"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"

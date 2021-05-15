@@ -17,14 +17,12 @@ import {
   IconTime,
 } from "../src/components/icons"
 import { useBookmarks } from "../src/hooks/useBookmarks"
+import { truncate } from "../src/lib/utils"
 
 export default function Item({ data }) {
   const { isFallback } = useRouter()
   const { bookmarks, addBookmark, removeBookmark } = useBookmarks()
   const content = { __html: data ? data.content : "" }
-  const urlRegex = new RegExp(
-    /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}(?!w{1,}\.)[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/
-  )
 
   const handleBookmarkClick = (_) => {
     if (bookmarks.includes(data.id)) {
@@ -104,7 +102,7 @@ export default function Item({ data }) {
             </span>
             <span>
               <Link href={`/${data.id}`}>
-                <a className="group hover:text-pink-400 transition-colors duration-300 ease-out">
+                <a className="group hover:text-gray-200 transition-colors duration-300 ease-out">
                   <IconComment />
                   <span className="border-b border-dotted group-hover:border-transparent">
                     {data.comments_count} comment
@@ -113,25 +111,25 @@ export default function Item({ data }) {
                 </a>
               </Link>
             </span>
-            {urlRegex.test(data.url) && (
+            {data.domain && (
               <React.Fragment>
                 <span>
                   <a
-                    className="group hover:text-pink-400"
+                    className="group hover:text-gray-200"
                     href={data.url}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <IconLink />
                     <span className="border-b border-dotted group-hover:border-transparent">
-                      {data.url.match(urlRegex)}
+                      {truncate(data.domain, 40)}
                     </span>
                   </a>
                 </span>
               </React.Fragment>
             )}
             <button
-              className="group hover:text-pink-400"
+              className="group hover:text-gray-200"
               onClick={handleBookmarkClick}
             >
               {bookmarks.includes(data.id) ? (
@@ -163,12 +161,12 @@ export default function Item({ data }) {
             </React.Fragment>
           )}
         </header>
-        <main className="flex-1 space-y-6">
+        <div className="flex-1 space-y-6">
           {/* Comments */}
           {data.comments.map((comment) => (
             <Comment key={comment.id} data={comment} />
           ))}
-        </main>
+        </div>
         <Footer />
       </div>
     </>

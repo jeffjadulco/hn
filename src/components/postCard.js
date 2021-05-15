@@ -1,23 +1,29 @@
 import Link from "next/link"
 import { formatDistanceToNowStrict, fromUnixTime } from "date-fns"
+import { truncate } from "../lib/utils"
 
 export default function PostCard({ data }) {
-  const urlRegex = new RegExp(
-    /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}(?!w{1,}\.)[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/
-  )
-
   if (!data) return <></>
+
+  const titleClassName =
+    "text-lg font-semibold leading-3 text-gray-300 group-hover:text-yellow-500 focus:text-yellow-500"
 
   return (
     <div className="group mb-6">
-      <a
-        href={data.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-lg font-semibold leading-3 text-gray-300 group-hover:text-yellow-500 focus:text-yellow-500"
-      >
-        {data.title}
-      </a>
+      {data.url === data.id ? (
+        <Link href={`/${data.id}`}>
+          <a className={titleClassName}>{data.title}</a>
+        </Link>
+      ) : (
+        <a
+          href={data.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={titleClassName}
+        >
+          {data.title}
+        </a>
+      )}
       <div className="text-sm font-normal text-gray-400">
         <span>{data.points} points</span>
         <span className="text-gray-700"> • </span>
@@ -35,10 +41,10 @@ export default function PostCard({ data }) {
             addSuffix: true,
           })}
         </span>
-        {urlRegex.test(data.url) && (
+        {data.domain && (
           <>
             <span className="text-gray-700"> • </span>
-            <span>{data.url.match(urlRegex)}</span>
+            <span>{truncate(data.domain, 40)}</span>
           </>
         )}
       </div>
