@@ -1,4 +1,4 @@
-import PostCard from "./postCard"
+import { PostCard } from "./postCard"
 
 const Posts = ({ data }) => {
   return (

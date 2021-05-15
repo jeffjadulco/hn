@@ -1,23 +1,35 @@
-import Link from "next/link"
-import { useEffect } from "react"
+import { useQueries, useQueryClient } from "react-query"
 import { useBookmarks } from "../hooks/useBookmarks"
 import { IconBookmarkOutline } from "./icons"
-import PostCard from "./postCard"
+import { PostCard } from "./postCard"
+import { PostCardSkeleton } from "./postCardSkeleton"
+import { getPostDataWithComments } from "../services/items"
 
 const Bookmarks = () => {
-  const { bookmarksData, fetchBookmarks } = useBookmarks()
+  const { bookmarks } = useBookmarks()
+  const queryCache = useQueryClient().getQueryCache()
 
-  useEffect(() => {
-    fetchBookmarks()
-  }, [])
+  useQueries(
+    bookmarks.map((bookmark) => ({
+      queryKey: ["bookmarks", bookmark],
+      queryFn: () => {
+        return getPostDataWithComments(bookmark)
+      },
+    }))
+  )
 
   return (
     <main className="flex-1">
-      {bookmarksData && bookmarksData.length > 0 ? (
-        bookmarksData.map((data) => <PostCard key={data.id} data={data} />)
-      ) : (
-        <NoBookmarks />
-      )}
+      {bookmarks.map((bookmark) => {
+        const {
+          state: { isFetching, data },
+        } = queryCache.find(["bookmarks", bookmark])
+        if (isFetching) {
+          return <PostCardSkeleton key={bookmark} />
+        }
+        return <PostCard key={bookmark} data={data} />
+      })}
+      {bookmarks.length === 0 && <NoBookmarks />}
     </main>
   )
 }

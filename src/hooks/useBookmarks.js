@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useCallback,
-} from "react"
-import { fetchBookmarks } from "../services/bookmarks"
+import { createContext, useContext, useEffect, useReducer } from "react"
 
 const BookmarksContext = createContext()
 
@@ -36,38 +29,9 @@ function bookmarksReducer(state, action) {
         bookmarks: bms,
       }
     }
-    case "FETCH": {
-      return {
-        ...state,
-        isFetching: true,
-      }
-    }
-    case "FETCH-COMPLETED": {
-      return {
-        ...state,
-        isFetching: false,
-        bookmarksData: action.payload,
-      }
-    }
-    case "FETCH-FAILED": {
-      return {
-        ...state,
-        isFetching: false,
-      }
-    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`)
     }
-  }
-}
-
-async function fetchBookmarksData(bookmarks, dispatch) {
-  dispatch({ type: "FETCH" })
-  try {
-    const posts = await fetchBookmarks(bookmarks)
-    dispatch({ type: "FETCH-COMPLETED", payload: posts })
-  } catch (error) {
-    dispatch({ type: "FETCH-FAILED" })
   }
 }
 
@@ -76,30 +40,19 @@ function BookmarksProvider({ children }) {
     bookmarks: [],
     bookmarksData: [],
   })
-  const { bookmarks } = state
 
   useEffect(() => {
     dispatch({ type: "LOAD" })
   }, [])
 
-  const fetchBookmarks = useCallback(() => {
-    fetchBookmarksData(bookmarks, dispatch)
-  }, [bookmarks])
-
-  useEffect(() => {
-    fetchBookmarksData(bookmarks, dispatch)
-  }, [bookmarks])
-
   const value = {
     bookmarks: state ? state.bookmarks : [],
-    bookmarksData: state ? state.bookmarksData : {},
     addBookmark: function (id) {
       dispatch({ type: "ADD", payload: id })
     },
     removeBookmark: function (id) {
       dispatch({ type: "REMOVE", payload: id })
     },
-    fetchBookmarks,
   }
 
   return (

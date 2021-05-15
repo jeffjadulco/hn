@@ -2,7 +2,7 @@ import Link from "next/link"
 import { formatDistanceToNowStrict, fromUnixTime } from "date-fns"
 import { truncate } from "../lib/utils"
 
-export default function PostCard({ data }) {
+function PostCard({ data }) {
   if (!data) return <></>
 
   const titleClassName =
@@ -51,3 +51,5 @@ export default function PostCard({ data }) {
     </div>
   )
 }
+
+export { PostCard }

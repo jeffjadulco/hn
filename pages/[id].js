@@ -7,22 +7,24 @@ import Comment from "../src/components/comment"
 import { Footer } from "../src/components/footer"
 import { SEO } from "../src/components/seo"
 import {
-  IconBack,
   IconBookmarkOutline,
   IconBookmarkSolid,
   IconComment,
-  IconHome,
   IconLink,
   IconPoints,
   IconTime,
 } from "../src/components/icons"
 import { useBookmarks } from "../src/hooks/useBookmarks"
 import { truncate } from "../src/lib/utils"
+import { useQueryClient } from "react-query"
 
 export default function Item({ data }) {
-  const { isFallback } = useRouter()
+  const { isFallback, query } = useRouter()
   const { bookmarks, addBookmark, removeBookmark } = useBookmarks()
-  const content = { __html: data ? data.content : "" }
+
+  const cached = useQueryClient()
+    .getQueryCache()
+    .find(["bookmarks", Number(query.id)])
 
   const handleBookmarkClick = (_) => {
     if (bookmarks.includes(data.id)) {
@@ -30,6 +32,16 @@ export default function Item({ data }) {
     } else {
       addBookmark(data.id)
     }
+  }
+
+  if (cached && cached.state.data) {
+    return (
+      <PostContent
+        data={cached.state.data}
+        isSaved={bookmarks.includes(cached.state.data.id)}
+        onClickSave={handleBookmarkClick}
+      />
+    )
   }
 
   if (isFallback) {
@@ -57,6 +69,16 @@ export default function Item({ data }) {
     )
   }
 
+  return (
+    <PostContent
+      data={data}
+      isSaved={bookmarks.includes(data.id)}
+      onClickSave={handleBookmarkClick}
+    />
+  )
+}
+
+function PostContent({ data, onClickSave, isSaved }) {
   return (
     <>
       <SEO
@@ -128,11 +150,8 @@ export default function Item({ data }) {
                 </span>
               </React.Fragment>
             )}
-            <button
-              className="group hover:text-gray-200"
-              onClick={handleBookmarkClick}
-            >
-              {bookmarks.includes(data.id) ? (
+            <button className="group hover:text-gray-200" onClick={onClickSave}>
+              {isSaved ? (
                 <React.Fragment>
                   <IconBookmarkSolid />
                   <span className="group-hover:border-transparent border-b border-dotted">
@@ -153,7 +172,7 @@ export default function Item({ data }) {
             <React.Fragment>
               <div
                 className="pt-8 prose max-w-3xl text-gray-300"
-                dangerouslySetInnerHTML={content}
+                dangerouslySetInnerHTML={{ __html: data ? data.content : "" }}
               />
               <div className="mt-12 mx-auto w-14">
                 <div className="border-t-[3px] rounded-md border-pink-500" />
