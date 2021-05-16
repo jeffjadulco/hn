@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.2.1",
+    "classnames": "^2.2.6",
     "date-fns": "^2.16.1",
     "next": "^10.1.2",
     "next-seo": "^4.17.0",

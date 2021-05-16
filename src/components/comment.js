@@ -1,8 +1,9 @@
 import { formatDistanceToNowStrict, fromUnixTime } from "date-fns"
 import { useState } from "react"
+import classnames from "classnames"
 import { IconUser } from "./icons"
 
-export default function Comment({ data }) {
+export default function Comment({ data, op }) {
   const content = { __html: data.content }
   const indentStyle = `comment-indent-${data.level}`
   const shouldCollapseInitially =
@@ -11,7 +12,6 @@ export default function Comment({ data }) {
   const [isCollapsed, setCollapsed] = useState(shouldCollapseInitially)
 
   const onToggleCollasped = (e) => {
-    // e.preventDefault()
     e.stopPropagation()
 
     const selection = window.getSelection()
@@ -36,7 +36,13 @@ export default function Comment({ data }) {
         <div className="text-sm font-normal text-gray-400 mb-1">
           <span>
             <IconUser />
-            {data.user}
+            <span
+              className={classnames({
+                "bg-gray-800 text-gray-200 px-1 rounded-sm": data.user === op,
+              })}
+            >
+              {data.user}
+            </span>
           </span>
           <span className="text-gray-700"> • </span>
           <span>
@@ -50,10 +56,10 @@ export default function Comment({ data }) {
           dangerouslySetInnerHTML={content}
         />
       </div>
-      <div className={`my-4 border-l-2 ${indentStyle}`} hidden={isCollapsed}>
+      <div className={`border-l-2 ${indentStyle}`} hidden={isCollapsed}>
         <div className="ml-3 sm:ml-5">
           {data.comments.map((comment) => (
-            <Comment key={comment.id} data={comment} />
+            <Comment key={comment.id} data={comment} op={op} />
           ))}
         </div>
       </div>

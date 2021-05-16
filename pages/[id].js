@@ -183,7 +183,7 @@ function PostContent({ data, onClickSave, isSaved }) {
         <div className="flex-1 space-y-6">
           {/* Comments */}
           {data.comments.map((comment) => (
-            <Comment key={comment.id} data={comment} />
+            <Comment key={comment.id} data={comment} op={data.user} />
           ))}
         </div>
         <Footer />
