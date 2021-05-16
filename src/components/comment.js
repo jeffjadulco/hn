@@ -21,7 +21,7 @@ export default function Comment({ data, op }) {
   }
 
   return (
-    <div className="group">
+    <div className="group my-4">
       <div
         className={`relative px-3 -ml-2 sm:-ml-3 -mr-3 py-2 -my-2 border-2 border-transparent sm:hover:border-gray-700 rounded-md sm:hover:bg-gray-900  hover:bg-gray-800 hover:bg-opacity-75 ${
           data.comments.length > 0 ? "cursor-pointer" : ""
