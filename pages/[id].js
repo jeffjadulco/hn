@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { formatDistanceToNowStrict, fromUnixTime } from "date-fns"
@@ -79,6 +79,12 @@ export default function Item({ data }) {
 }
 
 function PostContent({ data, onClickSave, isSaved }) {
+  const [collapseAll, setCollapsedAll] = useState(false)
+
+  const toggleCollapseAll = () => {
+    setCollapsedAll(!collapseAll)
+  }
+
   return (
     <>
       <SEO
@@ -123,15 +129,18 @@ function PostContent({ data, onClickSave, isSaved }) {
               })}
             </span>
             <span>
-              <Link href={`/${data.id}`}>
-                <a className="group hover:text-gray-200 transition-colors duration-300 ease-out">
-                  <IconComment />
-                  <span className="border-b border-dotted group-hover:border-transparent">
-                    {data.comments_count} comment
-                    {data.comments_count != 1 && "s"}
-                  </span>
-                </a>
-              </Link>
+              <button
+                className="group hover:text-gray-200 transition-colors duration-300 ease-out"
+                onClick={() => {
+                  toggleCollapseAll()
+                }}
+              >
+                <IconComment />
+                <span className="border-b border-dotted group-hover:border-transparent">
+                  {data.comments_count} comment
+                  {data.comments_count != 1 && "s"}
+                </span>
+              </button>
             </span>
             {data.domain && (
               <React.Fragment>
@@ -183,7 +192,12 @@ function PostContent({ data, onClickSave, isSaved }) {
         <div className="flex-1 space-y-6">
           {/* Comments */}
           {data.comments.map((comment) => (
-            <Comment key={comment.id} data={comment} op={data.user} />
+            <Comment
+              key={comment.id}
+              data={comment}
+              op={data.user}
+              collapseAll={collapseAll}
+            />
           ))}
         </div>
         <Footer />
@@ -218,6 +232,6 @@ export async function getStaticProps({ params }) {
     props: {
       data,
     },
-    revalidate: 3600,
+    revalidate: 60 * 10,
   }
 }
